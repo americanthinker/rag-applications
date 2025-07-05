@@ -3,7 +3,7 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 # Set environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-
+ENV UV_HTTP_TIMEOUT=300
 # ENV VIRTUAL_ENV=/opt/venv
 # RUN python3 -m venv $VIRTUAL_ENV
 # ENV PATH="$VIRTUAL_ENV/bin:$PATH"
