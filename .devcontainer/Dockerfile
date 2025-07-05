@@ -15,11 +15,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
-WORKDIR /rag_app
-ENV PATH="/rag_app/.venv/bin:$PATH"
+WORKDIR /workspaces/rag_app
+ENV PATH="/workspaces/rag_app/.venv/bin:$PATH"
 
 # Copy the rest of the application code into the container and sync dependencies
-COPY . /rag_app/
+COPY . /workspaces/rag_app/
 RUN uv sync --locked
 # Set entrypoint
 CMD ["bash"]
