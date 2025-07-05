@@ -1,8 +1,9 @@
-# Use Python 3.10 base image
-FROM mcr.microsoft.com/devcontainers/python:3.10
+# Use Python 3.12 base image
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 # Set environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK=on
+
 # ENV VIRTUAL_ENV=/opt/venv
 # RUN python3 -m venv $VIRTUAL_ENV
 # ENV PATH="$VIRTUAL_ENV/bin:$PATH"
@@ -15,13 +16,10 @@ RUN apt-get update && apt-get install -y \
 
 # Set the working directory in the container
 WORKDIR /rag_app
+ENV PATH="/rag_app/.venv/bin:$PATH"
 
-# Copy and install Python requirements
-COPY requirements.txt /rag_app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application code into the container
+# Copy the rest of the application code into the container and sync dependencies
 COPY . /rag_app/
-
+RUN uv sync --locked
 # Set entrypoint
 CMD ["bash"]
